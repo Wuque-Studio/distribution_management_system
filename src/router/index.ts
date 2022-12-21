@@ -7,7 +7,7 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "layout",
+      name: "mainpage",
       meta: {
         title: " 无缺工作室",
       },

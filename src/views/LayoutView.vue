@@ -28,13 +28,48 @@
           <n-space vertical>
             <div class="header">
               <n-space justify="space-between">
-                <h1
-                  class="title"
-                  style="font-size: 40px; margin: 0; display: inline"
-                >
+                <h1 class="title" style="font-size: 40px; margin: 0">
                   {{ $route.meta.title as string }}
                 </h1>
-                <div>
+
+                <div
+                  style="
+                    display: inline-flex;
+                    text-align: center;
+                    justify-content: center;
+                    align-items: center;
+                  "
+                >
+                  <n-dropdown
+                    trigger="click"
+                    :options="SelectOptions"
+                    @select="handleSelect"
+                    size="huge"
+                  >
+                    <div
+                      style="
+                        display: inline-flex;
+                        text-align: center;
+                        justify-content: center;
+                        align-items: center;
+                      "
+                    >
+                      <n-avatar
+                        :style="{
+                          color: 'black',
+                          backgroundColor: 'white',
+                        }"
+                        round
+                        size="large"
+                      >
+                        <n-icon>
+                          <PersonCircleIcon />
+                        </n-icon>
+                      </n-avatar>
+                      <div>Admin</div>
+                    </div>
+                  </n-dropdown>
+                  <n-divider vertical />
                   <n-avatar
                     :style="{
                       color: 'black',
@@ -42,10 +77,12 @@
                     }"
                     round
                     size="large"
-                    style="margin: 10px"
+                    onclick=""
                   >
-                    <n-icon> <PersonCircleIcon /> </n-icon
-                  ></n-avatar>
+                    <n-icon>
+                      <LanguageIcon />
+                    </n-icon>
+                  </n-avatar>
                 </div>
               </n-space>
             </div>
@@ -67,6 +104,9 @@ import {
   WineOutline as WineIcon,
   HomeOutline as HomeIcon,
   PersonCircleOutline as PersonCircleIcon,
+  LanguageOutline as LanguageIcon,
+  SettingsOutline as SettingsIcon,
+  LogOutOutline as LogOutIcon,
 } from "@vicons/ionicons5";
 
 import { RouterLink } from "vue-router";
@@ -169,6 +209,40 @@ const menuOptions: MenuOption[] = [
     ],
   },
 ];
+const SelectOptions = [
+  {
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            name: "mainpage",
+          },
+        },
+        { default: () => "管理" }
+      ),
+    key: "mainpage",
+    icon: renderIcon(SettingsIcon),
+  },
+  {
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            name: "mainpage",
+          },
+        },
+        { default: () => "登出" }
+      ),
+    key: "signout",
+    icon: renderIcon(LogOutIcon),
+  },
+];
+
+const handleSelect = () => {
+  console.log("click");
+};
 
 const inverted = ref(false);
 </script>
@@ -176,11 +250,9 @@ const inverted = ref(false);
 @import url("@/assets/fonts/font.css");
 .header {
   height: 56px;
-  width: calc(100vw - 271px);
 }
 .content {
   padding: 20px;
-  background-color: red;
   height: calc(100vh - 140px);
 }
 </style>
