@@ -6,4 +6,10 @@
   </main>
 </template>
 
-<style></style>
+<style>
+@import url("@/assets/fonts/font.css");
+
+body {
+  font-family: AcariSans, SiYuan;
+}
+</style>

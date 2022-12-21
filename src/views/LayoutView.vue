@@ -14,12 +14,7 @@
           bordered
         >
           <div>
-            <img src="@/assets/imgs/logo.png" width="220" />
-            <n-image
-              width="100px"
-              height="100px"
-              src="@/assets/imgs/logo.png"
-            ></n-image>
+            <img src="@/assets/imgs/logo.png" width="220" @click="click_img" />
           </div>
 
           <n-menu
@@ -29,22 +24,40 @@
             :options="menuOptions"
           />
         </n-layout-sider>
-        <n-layout content-style="padding: 24px;" :native-scrollbar="false">
-          <div class="header">
-            <h1 style="font-size: 50px">{{}}</h1>
-          </div>
-          <div class="content">
-            <router-view
-              :key="($route.meta.repository as string)"
-            ></router-view>
-          </div>
+        <n-layout content-style="padding: 18px;" :native-scrollbar="false">
+          <n-space vertical>
+            <div class="header">
+              <n-space justify="space-between">
+                <h1
+                  class="title"
+                  style="font-size: 40px; margin: 0; display: inline"
+                >
+                  {{ $route.meta.title as string }}
+                </h1>
+                <div>
+                  <n-avatar
+                    :style="{
+                      color: 'black',
+                      backgroundColor: 'white',
+                    }"
+                    round
+                    size="large"
+                    style="margin: 10px"
+                  >
+                    <n-icon> <PersonCircleIcon /> </n-icon
+                  ></n-avatar>
+                </div>
+              </n-space>
+            </div>
+            <div class="content">
+              <router-view :key="($route.meta.title as string)" /></div
+          ></n-space>
         </n-layout>
       </n-layout>
     </n-layout>
   </n-config-provider>
 </template>
 <script setup lang="ts">
-import { h, ref, reactive } from "vue";
 import type { MenuOption } from "naive-ui";
 import type { Component } from "vue";
 import { NIcon } from "naive-ui";
@@ -52,23 +65,55 @@ import {
   BookOutline as BookIcon,
   PersonOutline as PersonIcon,
   WineOutline as WineIcon,
+  HomeOutline as HomeIcon,
+  PersonCircleOutline as PersonCircleIcon,
 } from "@vicons/ionicons5";
+
+import { RouterLink } from "vue-router";
+import router from "@/router/index";
+
+const click_img = () => {
+  router.push({ path: "/" });
+};
 
 function renderIcon(icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) });
 }
 const themeOverrides = reactive({
   common: {
-    primaryColor: "#1F29C0",
+    primaryColor: "#2545C0",
   },
   Slider: {
     railColor: "#FFFFFF",
     fillColor: "#FFFFFF",
-    railColorHover: "#1F29C0",
-    fillColorHover: "#1F29C0",
+    railColorHover: "#2545C0",
+    fillColorHover: "#2545C0",
   },
 });
 const menuOptions: MenuOption[] = [
+  {
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            name: "home",
+          },
+        },
+        { default: () => "主页" }
+      ),
+    key: "home",
+    icon: renderIcon(HomeIcon),
+  },
+  {
+    key: "divider-1",
+    type: "divider",
+    props: {
+      style: {
+        marginLeft: "32px",
+      },
+    },
+  },
   {
     label: "且听风吟",
     key: "hear-the-wind-sing",
@@ -128,7 +173,14 @@ const menuOptions: MenuOption[] = [
 const inverted = ref(false);
 </script>
 <style scoped>
+@import url("@/assets/fonts/font.css");
 .header {
   height: 56px;
+  width: calc(100vw - 271px);
+}
+.content {
+  padding: 20px;
+  background-color: red;
+  height: calc(100vh - 140px);
 }
 </style>
