@@ -1,9 +1,20 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const themeOverrides = reactive({
+  common: {
+    primaryColor: "#2545C0",
+    primaryColorHover: "#2545C0",
+  },
+});
+</script>
 
 <template>
-  <main>
-    <RouterView />
-  </main>
+  <n-config-provider :theme-overrides="themeOverrides">
+    <n-message-provider>
+      <main>
+        <RouterView />
+      </main>
+    </n-message-provider>
+  </n-config-provider>
 </template>
 
 <style>

@@ -1,98 +1,96 @@
 <template>
-  <n-config-provider :theme-overrides="themeOverrides">
-    <n-layout style="margin: 0 auto">
-      <n-layout has-sider>
-        <n-layout-sider
-          style="height: 100vh"
-          collapse-mode="width"
-          :collapsed-width="95"
-          :width="235"
-          show-trigger="arrow-circle"
-          trigger-style="top:200px"
-          collapsed-trigger-style="top:200px"
-          content-style="padding: 10px;"
-          bordered
-        >
-          <div>
-            <img src="@/assets/imgs/logo.png" width="220" @click="click_img" />
-          </div>
+  <n-layout style="margin: 0 auto">
+    <n-layout has-sider>
+      <n-layout-sider
+        style="height: 100vh"
+        collapse-mode="width"
+        :collapsed-width="95"
+        :width="235"
+        show-trigger="arrow-circle"
+        trigger-style="top:200px"
+        collapsed-trigger-style="top:200px"
+        content-style="padding: 10px;"
+        bordered
+      >
+        <div>
+          <img src="@/assets/imgs/logo.png" width="220" @click="click_img" />
+        </div>
 
-          <n-menu
-            :inverted="inverted"
-            :collapsed-width="75"
-            :collapsed-icon-size="25"
-            :options="menuOptions"
-          />
-        </n-layout-sider>
-        <n-layout content-style="padding: 18px;" :native-scrollbar="false">
-          <n-space vertical>
-            <div class="header">
-              <n-space justify="space-between">
-                <h1 class="title" style="font-size: 40px; margin: 0">
-                  {{ $route.meta.title as string }}
-                </h1>
+        <n-menu
+          :inverted="inverted"
+          :collapsed-width="75"
+          :collapsed-icon-size="25"
+          :options="menuOptions"
+        />
+      </n-layout-sider>
+      <n-layout content-style="padding: 18px;" :native-scrollbar="false">
+        <n-space vertical>
+          <div class="header">
+            <n-space justify="space-between">
+              <h1 class="title" style="font-size: 40px; margin: 0">
+                {{ $route.meta.title as string }}
+              </h1>
 
-                <div
-                  style="
-                    display: inline-flex;
-                    text-align: center;
-                    justify-content: center;
-                    align-items: center;
-                  "
+              <div
+                style="
+                  display: inline-flex;
+                  text-align: center;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <n-dropdown
+                  trigger="click"
+                  :options="SelectOptions"
+                  @select="handleSelect"
+                  size="huge"
                 >
-                  <n-dropdown
-                    trigger="click"
-                    :options="SelectOptions"
-                    @select="handleSelect"
-                    size="huge"
+                  <div
+                    style="
+                      display: inline-flex;
+                      text-align: center;
+                      justify-content: center;
+                      align-items: center;
+                    "
                   >
-                    <div
-                      style="
-                        display: inline-flex;
-                        text-align: center;
-                        justify-content: center;
-                        align-items: center;
-                      "
+                    <n-avatar
+                      :style="{
+                        color: 'black',
+                        backgroundColor: 'white',
+                      }"
+                      round
+                      size="large"
                     >
-                      <n-avatar
-                        :style="{
-                          color: 'black',
-                          backgroundColor: 'white',
-                        }"
-                        round
-                        size="large"
-                      >
-                        <n-icon>
-                          <PersonCircleIcon />
-                        </n-icon>
-                      </n-avatar>
-                      <div>Admin</div>
-                    </div>
-                  </n-dropdown>
-                  <n-divider vertical />
-                  <n-avatar
-                    :style="{
-                      color: 'black',
-                      backgroundColor: 'white',
-                    }"
-                    round
-                    size="large"
-                    onclick=""
-                  >
-                    <n-icon>
-                      <LanguageIcon />
-                    </n-icon>
-                  </n-avatar>
-                </div>
-              </n-space>
-            </div>
-            <div class="content">
-              <router-view :key="($route.meta.title as string)" /></div
-          ></n-space>
-        </n-layout>
+                      <n-icon>
+                        <PersonCircleIcon />
+                      </n-icon>
+                    </n-avatar>
+                    <div>Admin</div>
+                  </div>
+                </n-dropdown>
+                <n-divider vertical />
+                <n-avatar
+                  :style="{
+                    color: 'black',
+                    backgroundColor: 'white',
+                  }"
+                  round
+                  size="large"
+                  onclick=""
+                >
+                  <n-icon>
+                    <LanguageIcon />
+                  </n-icon>
+                </n-avatar>
+              </div>
+            </n-space>
+          </div>
+          <div class="content background">
+            <router-view :key="($route.meta.title as string)" /></div
+        ></n-space>
       </n-layout>
     </n-layout>
-  </n-config-provider>
+  </n-layout>
 </template>
 <script setup lang="ts">
 import type { MenuOption } from "naive-ui";
@@ -111,6 +109,9 @@ import {
 
 import { RouterLink } from "vue-router";
 import router from "@/router/index";
+import { useTokenStore } from "../stores/token";
+const token = useTokenStore();
+console.log(token.token);
 
 const click_img = () => {
   router.push({ path: "/" });
@@ -119,17 +120,6 @@ const click_img = () => {
 function renderIcon(icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) });
 }
-const themeOverrides = reactive({
-  common: {
-    primaryColor: "#2545C0",
-  },
-  Slider: {
-    railColor: "#FFFFFF",
-    fillColor: "#FFFFFF",
-    railColorHover: "#2545C0",
-    fillColorHover: "#2545C0",
-  },
-});
 const menuOptions: MenuOption[] = [
   {
     label: () =>
@@ -155,9 +145,18 @@ const menuOptions: MenuOption[] = [
     },
   },
   {
-    label: "且听风吟",
-    key: "hear-the-wind-sing",
-    icon: renderIcon(BookIcon),
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            name: "login",
+          },
+        },
+        { default: () => "test" }
+      ),
+    key: "login",
+    icon: renderIcon(HomeIcon),
   },
   {
     label: "舞，舞，舞",
@@ -216,12 +215,12 @@ const SelectOptions = [
         RouterLink,
         {
           to: {
-            name: "mainpage",
+            name: "index",
           },
         },
         { default: () => "管理" }
       ),
-    key: "mainpage",
+    key: "manage",
     icon: renderIcon(SettingsIcon),
   },
   {
@@ -230,7 +229,7 @@ const SelectOptions = [
         RouterLink,
         {
           to: {
-            name: "mainpage",
+            name: "index",
           },
         },
         { default: () => "登出" }
