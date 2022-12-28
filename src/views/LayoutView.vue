@@ -153,9 +153,23 @@ const menuOptions: MenuOption[] = [
             name: "login",
           },
         },
-        { default: () => "test" }
+        { default: () => "login" }
       ),
     key: "login",
+    icon: renderIcon(HomeIcon),
+  },
+  {
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            name: "register",
+          },
+        },
+        { default: () => "register" }
+      ),
+    key: "register",
     icon: renderIcon(HomeIcon),
   },
   {
