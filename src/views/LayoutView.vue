@@ -238,18 +238,15 @@ const SelectOptions = [
     icon: renderIcon(SettingsIcon),
   },
   {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            name: "index",
-          },
-        },
-        { default: () => "登出" }
-      ),
+    label: "登出",
     key: "signout",
     icon: renderIcon(LogOutIcon),
+    props: {
+      onClick: () => {
+        token.token = "";
+        router.push({ name: "login" });
+      },
+    },
   },
 ];
 
