@@ -17,7 +17,7 @@ app.mount("#app");
 router.beforeEach((to, from, next) => {
   const tokenStore = useTokenStore();
   console.log(from.path + "->" + to.path);
-  if (tokenStore.token == "" || to.name === "login" || to.name === "register") {
+  if (tokenStore.token != "" || to.name === "login" || to.name === "register") {
     return next();
   } else {
     router.push({ name: "login" });
