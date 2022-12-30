@@ -85,7 +85,7 @@ import { ArrowBack, ArrowForward } from "@vicons/ionicons5";
 <style scoped>
 .carousel-img {
   width: 100%;
-  height: 350px;
+  height: 330px;
   object-fit: cover;
 }
 
