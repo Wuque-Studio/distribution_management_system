@@ -65,7 +65,7 @@
                         <PersonCircleIcon />
                       </n-icon>
                     </n-avatar>
-                    <div>Admin</div>
+                    <div>{{ token.user.name }}</div>
                   </div>
                 </n-dropdown>
                 <n-divider vertical />
