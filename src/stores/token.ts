@@ -12,4 +12,8 @@ export const useTokenStore = defineStore("token", {
       user: { name: "", role: "" } as UserInfo,
     };
   },
+  persist: {
+    key: "wuque-token",
+    storage: sessionStorage,
+  },
 });

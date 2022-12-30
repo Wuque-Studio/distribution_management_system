@@ -27,9 +27,9 @@
         <n-space vertical>
           <div class="header">
             <n-space justify="space-between">
-              <h1 class="title" style="font-size: 40px; margin: 0">
+              <n-h1 class="title" style="font-size: 40px; margin: 0">
                 {{ $route.meta.title as string }}
-              </h1>
+              </n-h1>
 
               <div
                 style="
