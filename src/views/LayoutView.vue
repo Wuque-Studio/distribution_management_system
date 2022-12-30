@@ -114,7 +114,7 @@ const token = useTokenStore();
 console.log(token.token);
 
 const click_img = () => {
-  router.push({ path: "/" });
+  router.push({ path: "/home" });
 };
 
 function renderIcon(icon: Component) {

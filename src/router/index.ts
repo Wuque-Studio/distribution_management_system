@@ -11,16 +11,14 @@ const router = createRouter({
     {
       path: "/",
       name: "index",
-      meta: {
-        title: " 无缺工作室",
-      },
+      redirect: "home",
       component: LayoutView,
       children: [
         {
           path: "home",
           name: "home",
           meta: {
-            title: "主页",
+            title: "无缺工作室",
           },
           component: HomeView,
         },

@@ -94,7 +94,7 @@ const signinClick = (e: MouseEvent) => {
           } as UserInfo;
           message.success("登陆成功");
           setTimeout(() => {
-            router.push({ name: "index" });
+            router.push({ path: "/home" });
           }, 1000);
         });
     } catch (e: any) {
