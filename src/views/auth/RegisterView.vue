@@ -87,7 +87,7 @@ const signupClick = (e: MouseEvent) => {
   formRef.value?.validate(async () => {
     try {
       await axios
-        .post("https://127.0.0.1:8080/api/auth/signup", model.value, {
+        .post("http://127.0.0.1:80/api/auth/signup", model.value, {
           headers: {
             "Content-Type": "application/json",
           },
