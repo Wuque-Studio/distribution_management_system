@@ -33,6 +33,7 @@
             v-model:value="model.reenteredPassword"
             :disabled="!model.password"
             type="password"
+            placeholder="重复输入密码"
             @keydown.enter.prevent
           />
         </n-form-item>
@@ -87,7 +88,7 @@ const signupClick = (e: MouseEvent) => {
   formRef.value?.validate(async () => {
     try {
       await axios
-        .post("http://127.0.0.1:80/api/auth/signup", model.value, {
+        .post("http://120.79.0.147:80/api/auth/signup", model.value, {
           headers: {
             "Content-Type": "application/json",
           },
